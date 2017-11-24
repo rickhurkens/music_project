@@ -1,0 +1,66 @@
+.piano {
+    height: 200px;
+    width: 1100px;
+    position: absolute;
+    background-color: #181818;
+    display: block;
+    padding: 3px 4px 5px;
+}
+.octave {
+    height: 100%;
+    float: left;
+    position: relative;
+}
+.key {
+    float: left;
+}
+.white-keys .key {
+    background-color: #fafafa;
+    width: 50px;
+    height: 200px;
+    border: 1px #333 solid;
+    box-sizing: border-box;
+    position: relative;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 -3px 3px 0px #999 inset, 0 4px 5px -3px #888 inset;
+}
+.black-keys .key {
+    background-color: #000;
+    width: 30px;
+    height: 130px;
+    position: absolute;
+    border-radius: 0 0 5px 5px;
+    box-shadow: 0 -4px 2px 3px #444 inset, 0 4px 5px -3px #000 inset;
+}
+.black-keys .key:nth-child(1) {
+    left: 35px;
+}
+.black-keys .key:nth-child(2) {
+    left: 85px;
+}
+.black-keys .key:nth-child(3) {
+    left: 185px;
+}
+.black-keys .key:nth-child(4) {
+    left: 235px;
+}
+.black-keys .key:nth-child(5) {
+    left: 285px;
+}
+
+.overlay {
+    width: 100%;
+    height: 100%;
+    display: none;
+    box-sizing: border-box;
+}
+.black-keys .overlay {
+    border-radius: 0 0 5px 5px;
+    background-color: rgb(110,0,0);
+    box-shadow: 0 -4px 2px 3px rgb(175,0,0) inset, 0 4px 5px -3px rgb(110,0,0) inset;
+}
+.white-keys .overlay {
+    border-radius: 0 0 10px 10px;
+    background-color: rgb(255,194,194);
+    box-shadow: 0 -3px 3px 0px rgb(194,0,0) inset, 0 4px 5px -3px rgb(130,0,0) inset;
+}
