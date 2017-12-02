@@ -30,6 +30,10 @@ public class Note {
 	}
 	
 	public String getName() {
+		return natural.name() + modifier.getModifierLetter();
+	}
+	
+	public String getDisplayName() {
 		return natural.name() + modifier.getModifierSign();
 	}
 	
