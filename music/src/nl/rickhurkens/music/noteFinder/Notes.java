@@ -39,4 +39,8 @@ public class Notes {
 	public static List<Note> getNotesOfValue(int value) {
 		return VALUE_TO_LIST_OF_NOTES.get(new Integer(value));
 	}
+	
+	public static Note getNoteWithName(String name) {
+		return NAME_TO_NOTE.get(name);
+	}
 }

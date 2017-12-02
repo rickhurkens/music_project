@@ -26,7 +26,7 @@ public class Key {
 		StringBuilder sb = new StringBuilder("The ");
 		sb.append(scale.get(0) + " " + abstractScale + " scale: ");
 		StringJoiner sj = new StringJoiner(", ","",".");
-		scale.forEach(note->sj.add(note.toString()));
+		scale.forEach(note->sj.add(note.getDisplayName()));
 		sb.append(sj);
 		return sb.toString();
 	}

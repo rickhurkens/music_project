@@ -21,20 +21,7 @@ public class GetScale extends HttpServlet {
 		String noteString = request.getParameter("note");
 		String majorMinor = request.getParameter("majorMinor").toUpperCase();
 		
-		String naturalString = noteString.substring(0,1);
-		StringBuilder noteName = new StringBuilder(naturalString);
-		
-		String modifierString = "";
-		if (noteString.length() > 1) {
-			modifierString = noteString.substring(1,2);
-			if (modifierString == "s") {
-				noteName.append("\u266F");
-			} else if (modifierString == "f") {
-				noteName.append("\u266D");
-			}
-		}
-		
-		Note rootNote = Notes.NAME_TO_NOTE.get(noteName.toString());
+		Note rootNote = Notes.getNoteWithName(noteString);
 		Key key = new Key(rootNote, AbstractScale.valueOf(majorMinor));
 		
 		request.setAttribute("key", key);

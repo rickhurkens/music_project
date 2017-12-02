@@ -1,8 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8" import="java.util.List, nl.rickhurkens.music.noteFinder.Key, nl.rickhurkens.music.noteFinder.Note" %>
-
-    
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="fn" uri="functionsTaglib" %>
 <!doctype html>
 
 <html lang="en">
@@ -14,32 +11,6 @@ pageEncoding="UTF-8" import="java.util.List, nl.rickhurkens.music.noteFinder.Key
         <meta name="author" content="Rick Hurkens">
 
         <link rel="stylesheet" href="style.css">
-
-        <style>
-            
-            	<%
-            		if (response.getHeader("initial-load") == null) {
-            			Key key = (Key)request.getAttribute("key");
-                    	List<Note> scale = key.getScale();
-
-                    	for(Note note : scale) {
-                        	StringBuilder noteString = new StringBuilder(note.getName().substring(0,1).toLowerCase());
-                        	if (note.getName().length() > 1) {
-    	        					String modifier = note.getName().substring(1,2);
-    	        					if (modifier.equals("\u266D")) {
-    	        						noteString.append("f");
-    	        					} else if (modifier.equals("\u266F")){
-    	        						noteString.append("s");
-    	        					}
-    	        				}
-                        	out.print(".key." + noteString + " .overlay {");
-                        	out.print("    display: block;");
-                        	out.println("}");
-                    	}
-            		}
-            	%>
-
-        </style> 
     </head>
     <body>
     		<div class="notespicker">
@@ -87,74 +58,393 @@ pageEncoding="UTF-8" import="java.util.List, nl.rickhurkens.music.noteFinder.Key
     		</div>
     		<div class="sometitle">
     			<h1>
-    				<% 
-    					if (response.getHeader("initial-load") == null) {
-    						out.print(request.getAttribute("key").toString()); 
-    					}	
-    				%>
+    				${requestScope.key}
     			</h1>
     		</div>
-        <div class="piano">
-            <div class="octave">
-                <div class="white-keys">
-                    <div class="key c bs"><div class="overlay"></div></div>
-                    <div class="key d"><div class="overlay"></div></div>
-                    <div class="key e ff"><div class="overlay"></div></div>
-                    <div class="key f es"><div class="overlay"></div></div>
-                    <div class="key g"><div class="overlay"></div></div>
-                    <div class="key a"><div class="overlay"></div></div>
-                    <div class="key b cf"><div class="overlay"></div></div>
+    		<div class="instruments">
+	        <div class="instrument piano">
+	            <div class="octave">
+	                <div class="white-keys">
+	                    <div class="key c bs"><div class="overlay ${fn:getNoteClass('C',requestScope.key)} ${fn:getNoteClass('Bs',requestScope.key)}"></div></div>
+	                    <div class="key d"><div class="overlay ${fn:getNoteClass('D',requestScope.key)}"></div></div>
+	                    <div class="key e ff"><div class="overlay ${fn:getNoteClass('E',requestScope.key)} ${fn:getNoteClass('Ff',requestScope.key)}"></div></div>
+	                    <div class="key f es"><div class="overlay ${fn:getNoteClass('F',requestScope.key)} ${fn:getNoteClass('Es',requestScope.key)}"></div></div>
+	                    <div class="key g"><div class="overlay ${fn:getNoteClass('G',requestScope.key)}"></div></div>
+	                    <div class="key a"><div class="overlay ${fn:getNoteClass('A',requestScope.key)}"></div></div>
+	                    <div class="key b cf"><div class="overlay ${fn:getNoteClass('B',requestScope.key)} ${fn:getNoteClass('Cf',requestScope.key)}"></div></div>
+	                </div>
+	                <div class="black-keys">
+	                    <div class="key cs df"><div class="overlay ${fn:getNoteClass('Cs',requestScope.key)} ${fn:getNoteClass('Df',requestScope.key)}"></div></div>
+	                    <div class="key ds ef"><div class="overlay ${fn:getNoteClass('Ds',requestScope.key)} ${fn:getNoteClass('Ef',requestScope.key)}"></div></div>
+	                    <div class="key fs gf"><div class="overlay ${fn:getNoteClass('Fs',requestScope.key)} ${fn:getNoteClass('Gf',requestScope.key)}"></div></div>
+	                    <div class="key gs af"><div class="overlay ${fn:getNoteClass('Gs',requestScope.key)} ${fn:getNoteClass('Af',requestScope.key)}"></div></div>
+	                    <div class="key as bf"><div class="overlay ${fn:getNoteClass('As',requestScope.key)} ${fn:getNoteClass('Bf',requestScope.key)}"></div></div>
+	                </div>
+	            </div>
+	            <div class="octave">
+	                <div class="white-keys">
+	                    <div class="key c bs"><div class="overlay ${fn:getNoteClass('C',requestScope.key)} ${fn:getNoteClass('Bs',requestScope.key)}"></div></div>
+	                    <div class="key d"><div class="overlay ${fn:getNoteClass('D',requestScope.key)}"></div></div>
+	                    <div class="key e ff"><div class="overlay ${fn:getNoteClass('E',requestScope.key)} ${fn:getNoteClass('Ff',requestScope.key)}"></div></div>
+	                    <div class="key f es"><div class="overlay ${fn:getNoteClass('F',requestScope.key)} ${fn:getNoteClass('Es',requestScope.key)}"></div></div>
+	                    <div class="key g"><div class="overlay ${fn:getNoteClass('G',requestScope.key)}"></div></div>
+	                    <div class="key a"><div class="overlay ${fn:getNoteClass('A',requestScope.key)}"></div></div>
+	                    <div class="key b cf"><div class="overlay ${fn:getNoteClass('B',requestScope.key)} ${fn:getNoteClass('Cf',requestScope.key)}"></div></div>
+	                </div>
+	                <div class="black-keys">
+	                    <div class="key cs df"><div class="overlay ${fn:getNoteClass('Cs',requestScope.key)} ${fn:getNoteClass('Df',requestScope.key)}"></div></div>
+	                    <div class="key ds ef"><div class="overlay ${fn:getNoteClass('Ds',requestScope.key)} ${fn:getNoteClass('Ef',requestScope.key)}"></div></div>
+	                    <div class="key fs gf"><div class="overlay ${fn:getNoteClass('Fs',requestScope.key)} ${fn:getNoteClass('Gf',requestScope.key)}"></div></div>
+	                    <div class="key gs af"><div class="overlay ${fn:getNoteClass('Gs',requestScope.key)} ${fn:getNoteClass('Af',requestScope.key)}"></div></div>
+	                    <div class="key as bf"><div class="overlay ${fn:getNoteClass('As',requestScope.key)} ${fn:getNoteClass('Bf',requestScope.key)}"></div></div>
+	                </div>
+	            </div>
+	            <div class="octave">
+	                <div class="white-keys">
+	                    <div class="key c bs"><div class="overlay ${fn:getNoteClass('C',requestScope.key)} ${fn:getNoteClass('Bs',requestScope.key)}"></div></div>
+	                    <div class="key d"><div class="overlay ${fn:getNoteClass('D',requestScope.key)}"></div></div>
+	                    <div class="key e ff"><div class="overlay ${fn:getNoteClass('E',requestScope.key)} ${fn:getNoteClass('Ff',requestScope.key)}"></div></div>
+	                    <div class="key f es"><div class="overlay ${fn:getNoteClass('F',requestScope.key)} ${fn:getNoteClass('Es',requestScope.key)}"></div></div>
+	                    <div class="key g"><div class="overlay ${fn:getNoteClass('G',requestScope.key)}"></div></div>
+	                    <div class="key a"><div class="overlay ${fn:getNoteClass('A',requestScope.key)}"></div></div>
+	                    <div class="key b cf"><div class="overlay ${fn:getNoteClass('B',requestScope.key)} ${fn:getNoteClass('Cf',requestScope.key)}"></div></div>
+	                </div>
+	                <div class="black-keys">
+	                    <div class="key cs df"><div class="overlay ${fn:getNoteClass('Cs',requestScope.key)} ${fn:getNoteClass('Df',requestScope.key)}"></div></div>
+	                    <div class="key ds ef"><div class="overlay ${fn:getNoteClass('Ds',requestScope.key)} ${fn:getNoteClass('Ef',requestScope.key)}"></div></div>
+	                    <div class="key fs gf"><div class="overlay ${fn:getNoteClass('Fs',requestScope.key)} ${fn:getNoteClass('Gf',requestScope.key)}"></div></div>
+	                    <div class="key gs af"><div class="overlay ${fn:getNoteClass('Gs',requestScope.key)} ${fn:getNoteClass('Af',requestScope.key)}"></div></div>
+	                    <div class="key as bf"><div class="overlay ${fn:getNoteClass('As',requestScope.key)} ${fn:getNoteClass('Bf',requestScope.key)}"></div></div>
+	                </div>
+	            </div>
+	            <div class="octave">
+	                <div class="white-keys">
+	                    <div class="key c bs"><div class="overlay ${fn:getNoteClass('C',requestScope.key)} ${fn:getNoteClass('Bs',requestScope.key)}"></div></div>
+	                </div>
+	            </div>
+	        </div>
+			<div class="instrument fretted-instrument bass">
+                <div class="fretboard">
+                    <div class="nut"></div>
+                    <div class="fret f1"></div>
+                    <div class="fret f2"></div>
+                    <div class="fret f3"></div>
+                    <div class="fret f4"></div>
+                    <div class="fret f5"></div>
+                    <div class="fret f6"></div>
+                    <div class="fret f7"></div>
+                    <div class="fret f8"></div>
+                    <div class="fret f9"></div>
+                    <div class="fret f10"></div>
+                    <div class="fret f11"></div>
+                    <div class="fret f12"></div>
                 </div>
-                <div class="black-keys">
-                    <div class="key cs df"><div class="overlay"></div></div>
-                    <div class="key s ef"><div class="overlay"></div></div>
-                    <div class="key fs gf"><div class="overlay"></div></div>
-                    <div class="key gs af"><div class="overlay"></div></div>
-                    <div class="key as bf"><div class="overlay"></div></div>
+                <div class="strings">
+                    <div class="string g-string">
+                        <div class="fret-space s1"></div>
+                        <div class="fret-space s2"></div>
+                        <div class="fret-space s3"></div>
+                        <div class="fret-space s4"></div>
+                        <div class="fret-space s5"></div>
+                        <div class="fret-space s6"></div>
+                        <div class="fret-space s7"></div>
+                        <div class="fret-space s8"></div>
+                        <div class="fret-space s9"></div>
+                        <div class="fret-space s10"></div>
+                        <div class="fret-space s11"></div>
+                        <div class="fret-space s12"></div>
+                    </div>
+                    <div class="string d-string">
+                        <div class="fret-space s1"></div>
+                        <div class="fret-space s2"></div>
+                        <div class="fret-space s3"></div>
+                        <div class="fret-space s4"></div>
+                        <div class="fret-space s5"></div>
+                        <div class="fret-space s6"></div>
+                        <div class="fret-space s7"></div>
+                        <div class="fret-space s8"></div>
+                        <div class="fret-space s9"></div>
+                        <div class="fret-space s10"></div>
+                        <div class="fret-space s11"></div>
+                        <div class="fret-space s12"></div>
+                    </div>
+                    <div class="string a-string">
+                        <div class="fret-space s1"></div>
+                        <div class="fret-space s2"></div>
+                        <div class="fret-space s3"></div>
+                        <div class="fret-space s4"></div>
+                        <div class="fret-space s5"></div>
+                        <div class="fret-space s6"></div>
+                        <div class="fret-space s7"></div>
+                        <div class="fret-space s8"></div>
+                        <div class="fret-space s9"></div>
+                        <div class="fret-space s10"></div>
+                        <div class="fret-space s11"></div>
+                        <div class="fret-space s12"></div>
+                    </div>
+                    <div class="string e-string">
+                        <div class="fret-space s1"></div>
+                        <div class="fret-space s2"></div>
+                        <div class="fret-space s3"></div>
+                        <div class="fret-space s4"></div>
+                        <div class="fret-space s5"></div>
+                        <div class="fret-space s6"></div>
+                        <div class="fret-space s7"></div>
+                        <div class="fret-space s8"></div>
+                        <div class="fret-space s9"></div>
+                        <div class="fret-space s10"></div>
+                        <div class="fret-space s11"></div>
+                        <div class="fret-space s12"></div>
+                    </div>
+                </div>
+                <div class="notes">
+                    <div class="string g-string">
+                        <div class="fret-space s1 Gs Af ${fn:getNoteClass('Gs',requestScope.key)} ${fn:getNoteClass('Af',requestScope.key)}"></div>
+                        <div class="fret-space s2 A ${fn:getNoteClass('A',requestScope.key)}"></div>
+                        <div class="fret-space s3 As Bf ${fn:getNoteClass('As',requestScope.key)} ${fn:getNoteClass('Bf',requestScope.key)}"></div>
+                        <div class="fret-space s4 B Cf ${fn:getNoteClass('B',requestScope.key)} ${fn:getNoteClass('Cf',requestScope.key)}"></div>
+                        <div class="fret-space s5 Bs C ${fn:getNoteClass('Bs',requestScope.key)} ${fn:getNoteClass('C',requestScope.key)}"></div>
+                        <div class="fret-space s6 Bs C ${fn:getNoteClass('Cs',requestScope.key)} ${fn:getNoteClass('Df',requestScope.key)}"></div>
+                        <div class="fret-space s7 D ${fn:getNoteClass('D',requestScope.key)}"></div>
+                        <div class="fret-space s8 Ds Ef ${fn:getNoteClass('Ds',requestScope.key)} ${fn:getNoteClass('Ef',requestScope.key)}"></div>
+                        <div class="fret-space s9 E Ff ${fn:getNoteClass('E',requestScope.key)} ${fn:getNoteClass('Ff',requestScope.key)}"></div>
+                        <div class="fret-space s10 Es F ${fn:getNoteClass('Es',requestScope.key)} ${fn:getNoteClass('F',requestScope.key)}"></div>
+                        <div class="fret-space s11 Fs Gf ${fn:getNoteClass('Fs',requestScope.key)} ${fn:getNoteClass('Gf',requestScope.key)}"></div>
+                        <div class="fret-space s12 G ${fn:getNoteClass('G',requestScope.key)}"></div>
+                    </div>
+                    <div class="string d-string">
+                        <div class="fret-space s1 Ds Ef ${fn:getNoteClass('Ds',requestScope.key)} ${fn:getNoteClass('Ef',requestScope.key)}"></div>
+                        <div class="fret-space s2 E Ff ${fn:getNoteClass('E',requestScope.key)} ${fn:getNoteClass('Ff',requestScope.key)}"></div>
+                        <div class="fret-space s3 Es F ${fn:getNoteClass('Es',requestScope.key)} ${fn:getNoteClass('F',requestScope.key)}"></div>
+                        <div class="fret-space s4 Fs Gf ${fn:getNoteClass('Fs',requestScope.key)} ${fn:getNoteClass('Gf',requestScope.key)}"></div>
+                        <div class="fret-space s5 G ${fn:getNoteClass('G',requestScope.key)}"></div>
+                        <div class="fret-space s6 Gs ${fn:getNoteClass('Gs',requestScope.key)} Af ${fn:getNoteClass('Af',requestScope.key)}"></div>
+                        <div class="fret-space s7 A ${fn:getNoteClass('A',requestScope.key)}"></div>
+                        <div class="fret-space s8 As Bf ${fn:getNoteClass('As',requestScope.key)} ${fn:getNoteClass('Bf',requestScope.key)}"></div>
+                        <div class="fret-space s9 B Cf ${fn:getNoteClass('B',requestScope.key)} ${fn:getNoteClass('Cf',requestScope.key)}"></div>
+                        <div class="fret-space s10 Bs C ${fn:getNoteClass('Bs',requestScope.key)} ${fn:getNoteClass('C',requestScope.key)}"></div>
+                        <div class="fret-space s11 Bs C ${fn:getNoteClass('Cs',requestScope.key)} ${fn:getNoteClass('Df',requestScope.key)}"></div>
+                        <div class="fret-space s12 D ${fn:getNoteClass('D',requestScope.key)}"></div>
+                    </div>
+                    <div class="string a-string">
+                        <div class="fret-space s1 As Bf ${fn:getNoteClass('As',requestScope.key)} ${fn:getNoteClass('Bf',requestScope.key)}"></div>
+                        <div class="fret-space s2 B Cf ${fn:getNoteClass('B',requestScope.key)} ${fn:getNoteClass('Cf',requestScope.key)}"></div>
+                        <div class="fret-space s3 Bs C ${fn:getNoteClass('Bs',requestScope.key)} ${fn:getNoteClass('C',requestScope.key)}"></div>
+                        <div class="fret-space s4 Bs C ${fn:getNoteClass('Cs',requestScope.key)} ${fn:getNoteClass('Df',requestScope.key)}"></div>
+                        <div class="fret-space s5 D ${fn:getNoteClass('D',requestScope.key)}"></div>
+                        <div class="fret-space s6 Ds Ef ${fn:getNoteClass('Ds',requestScope.key)} ${fn:getNoteClass('Ef',requestScope.key)}"></div>
+                        <div class="fret-space s7 E Ff ${fn:getNoteClass('E',requestScope.key)} ${fn:getNoteClass('Ff',requestScope.key)}"></div>
+                        <div class="fret-space s8 Es F ${fn:getNoteClass('Es',requestScope.key)} ${fn:getNoteClass('F',requestScope.key)}"></div>
+                        <div class="fret-space s9 Fs Gf ${fn:getNoteClass('Fs',requestScope.key)} ${fn:getNoteClass('Gf',requestScope.key)}"></div>
+                        <div class="fret-space s10 G ${fn:getNoteClass('G',requestScope.key)}"></div>
+                        <div class="fret-space s11 Gs ${fn:getNoteClass('Gs',requestScope.key)} Af ${fn:getNoteClass('Af',requestScope.key)}"></div>
+                        <div class="fret-space s12 A ${fn:getNoteClass('A',requestScope.key)}"></div>
+                    </div>
+                    <div class="string e-string">
+                        <div class="fret-space s1 Es F ${fn:getNoteClass('Es',requestScope.key)} ${fn:getNoteClass('F',requestScope.key)}"></div>
+                        <div class="fret-space s2 Fs Gf ${fn:getNoteClass('Fs',requestScope.key)} ${fn:getNoteClass('Gf',requestScope.key)}"></div>
+                        <div class="fret-space s3 G ${fn:getNoteClass('G',requestScope.key)}"></div>
+                        <div class="fret-space s4 Gs ${fn:getNoteClass('Gs',requestScope.key)} Af ${fn:getNoteClass('Af',requestScope.key)}"></div>
+                        <div class="fret-space s5 A ${fn:getNoteClass('A',requestScope.key)}"></div>
+                        <div class="fret-space s6 As Bf ${fn:getNoteClass('As',requestScope.key)} ${fn:getNoteClass('Bf',requestScope.key)}"></div>
+                        <div class="fret-space s7 B Cf ${fn:getNoteClass('B',requestScope.key)} ${fn:getNoteClass('Cf',requestScope.key)}"></div>
+                        <div class="fret-space s8 Bs C ${fn:getNoteClass('Bs',requestScope.key)} ${fn:getNoteClass('C',requestScope.key)}"></div>
+                        <div class="fret-space s9 Bs C ${fn:getNoteClass('Cs',requestScope.key)} ${fn:getNoteClass('Df',requestScope.key)}"></div>
+                        <div class="fret-space s10 D ${fn:getNoteClass('D',requestScope.key)}"></div>
+                        <div class="fret-space s11 Ds Ef ${fn:getNoteClass('Ds',requestScope.key)} ${fn:getNoteClass('Ef',requestScope.key)}"></div>
+                        <div class="fret-space s12 E Ff ${fn:getNoteClass('E',requestScope.key)} ${fn:getNoteClass('Ff',requestScope.key)}"></div>
+                    </div>
                 </div>
             </div>
-            <div class="octave">
-                <div class="white-keys">
-                    <div class="key c bs"><div class="overlay"></div></div>
-                    <div class="key d"><div class="overlay"></div></div>
-                    <div class="key e ff"><div class="overlay"></div></div>
-                    <div class="key f es"><div class="overlay"></div></div>
-                    <div class="key g"><div class="overlay"></div></div>
-                    <div class="key a"><div class="overlay"></div></div>
-                    <div class="key b cf"><div class="overlay"></div></div>
+            <div class="instrument fretted-instrument guitar">
+                <div class="fretboard">
+                    <div class="nut"></div>
+                    <div class="fret f1"></div>
+                    <div class="fret f2"></div>
+                    <div class="fret f3"></div>
+                    <div class="fret f4"></div>
+                    <div class="fret f5"></div>
+                    <div class="fret f6"></div>
+                    <div class="fret f7"></div>
+                    <div class="fret f8"></div>
+                    <div class="fret f9"></div>
+                    <div class="fret f10"></div>
+                    <div class="fret f11"></div>
+                    <div class="fret f12"></div>
                 </div>
-                <div class="black-keys">
-                    <div class="key cs df"><div class="overlay"></div></div>
-                    <div class="key s ef"><div class="overlay"></div></div>
-                    <div class="key fs gf"><div class="overlay"></div></div>
-                    <div class="key gs af"><div class="overlay"></div></div>
-                    <div class="key as bf"><div class="overlay"></div></div>
+                <div class="strings">
+                    <div class="string high-e-string">
+                        <div class="fret-space s1"></div>
+                        <div class="fret-space s2"></div>
+                        <div class="fret-space s3"></div>
+                        <div class="fret-space s4"></div>
+                        <div class="fret-space s5"></div>
+                        <div class="fret-space s6"></div>
+                        <div class="fret-space s7"></div>
+                        <div class="fret-space s8"></div>
+                        <div class="fret-space s9"></div>
+                        <div class="fret-space s10"></div>
+                        <div class="fret-space s11"></div>
+                        <div class="fret-space s12"></div>
+                    </div>
+                    <div class="string b-string">
+                        <div class="fret-space s1"></div>
+                        <div class="fret-space s2"></div>
+                        <div class="fret-space s3"></div>
+                        <div class="fret-space s4"></div>
+                        <div class="fret-space s5"></div>
+                        <div class="fret-space s6"></div>
+                        <div class="fret-space s7"></div>
+                        <div class="fret-space s8"></div>
+                        <div class="fret-space s9"></div>
+                        <div class="fret-space s10"></div>
+                        <div class="fret-space s11"></div>
+                        <div class="fret-space s12"></div>
+                    </div>
+                    <div class="string g-string">
+                        <div class="fret-space s1"></div>
+                        <div class="fret-space s2"></div>
+                        <div class="fret-space s3"></div>
+                        <div class="fret-space s4"></div>
+                        <div class="fret-space s5"></div>
+                        <div class="fret-space s6"></div>
+                        <div class="fret-space s7"></div>
+                        <div class="fret-space s8"></div>
+                        <div class="fret-space s9"></div>
+                        <div class="fret-space s10"></div>
+                        <div class="fret-space s11"></div>
+                        <div class="fret-space s12"></div>
+                    </div>
+                    <div class="string d-string wound">
+                        <div class="fret-space s1"></div>
+                        <div class="fret-space s2"></div>
+                        <div class="fret-space s3"></div>
+                        <div class="fret-space s4"></div>
+                        <div class="fret-space s5"></div>
+                        <div class="fret-space s6"></div>
+                        <div class="fret-space s7"></div>
+                        <div class="fret-space s8"></div>
+                        <div class="fret-space s9"></div>
+                        <div class="fret-space s10"></div>
+                        <div class="fret-space s11"></div>
+                        <div class="fret-space s12"></div>
+                    </div>
+                    <div class="string a-string wound">
+                        <div class="fret-space s1"></div>
+                        <div class="fret-space s2"></div>
+                        <div class="fret-space s3"></div>
+                        <div class="fret-space s4"></div>
+                        <div class="fret-space s5"></div>
+                        <div class="fret-space s6"></div>
+                        <div class="fret-space s7"></div>
+                        <div class="fret-space s8"></div>
+                        <div class="fret-space s9"></div>
+                        <div class="fret-space s10"></div>
+                        <div class="fret-space s11"></div>
+                        <div class="fret-space s12"></div>
+                    </div>
+                    <div class="string e-string wound">
+                        <div class="fret-space s1"></div>
+                        <div class="fret-space s2"></div>
+                        <div class="fret-space s3"></div>
+                        <div class="fret-space s4"></div>
+                        <div class="fret-space s5"></div>
+                        <div class="fret-space s6"></div>
+                        <div class="fret-space s7"></div>
+                        <div class="fret-space s8"></div>
+                        <div class="fret-space s9"></div>
+                        <div class="fret-space s10"></div>
+                        <div class="fret-space s11"></div>
+                        <div class="fret-space s12"></div>
+                    </div>
+                </div>
+                <div class="notes">
+                    <div class="string high-e-string">
+                        <div class="fret-space s1 Es F ${fn:getNoteClass('Es',requestScope.key)} ${fn:getNoteClass('F',requestScope.key)}"></div>
+                        <div class="fret-space s2 Fs Gf ${fn:getNoteClass('Fs',requestScope.key)} ${fn:getNoteClass('Gf',requestScope.key)}"></div>
+                        <div class="fret-space s3 G ${fn:getNoteClass('G',requestScope.key)}"></div>
+                        <div class="fret-space s4 Gs ${fn:getNoteClass('Gs',requestScope.key)} Af ${fn:getNoteClass('Af',requestScope.key)}"></div>
+                        <div class="fret-space s5 A ${fn:getNoteClass('A',requestScope.key)}"></div>
+                        <div class="fret-space s6 As Bf ${fn:getNoteClass('As',requestScope.key)} ${fn:getNoteClass('Bf',requestScope.key)}"></div>
+                        <div class="fret-space s7 B Cf ${fn:getNoteClass('B',requestScope.key)} ${fn:getNoteClass('Cf',requestScope.key)}"></div>
+                        <div class="fret-space s8 Bs C ${fn:getNoteClass('Bs',requestScope.key)} ${fn:getNoteClass('C',requestScope.key)}"></div>
+                        <div class="fret-space s9 Bs C ${fn:getNoteClass('Cs',requestScope.key)} ${fn:getNoteClass('Df',requestScope.key)}"></div>
+                        <div class="fret-space s10 D ${fn:getNoteClass('D',requestScope.key)}"></div>
+                        <div class="fret-space s11 Ds Ef ${fn:getNoteClass('Ds',requestScope.key)} ${fn:getNoteClass('Ef',requestScope.key)}"></div>
+                        <div class="fret-space s12 E Ff ${fn:getNoteClass('E',requestScope.key)} ${fn:getNoteClass('Ff',requestScope.key)}"></div>
+                    </div>
+                    <div class="string b-string">
+                        <div class="fret-space s1 Bs C ${fn:getNoteClass('Bs',requestScope.key)} ${fn:getNoteClass('C',requestScope.key)}"></div>
+                        <div class="fret-space s2 Bs C ${fn:getNoteClass('Cs',requestScope.key)} ${fn:getNoteClass('Df',requestScope.key)}"></div>
+                        <div class="fret-space s3 D ${fn:getNoteClass('D',requestScope.key)}"></div>
+                        <div class="fret-space s4 Ds Ef ${fn:getNoteClass('Ds',requestScope.key)} ${fn:getNoteClass('Ef',requestScope.key)}"></div>
+                        <div class="fret-space s5 E Ff ${fn:getNoteClass('E',requestScope.key)} ${fn:getNoteClass('Ff',requestScope.key)}"></div>
+                        <div class="fret-space s6 Es F ${fn:getNoteClass('Es',requestScope.key)} ${fn:getNoteClass('F',requestScope.key)}"></div>
+                        <div class="fret-space s7 Fs Gf ${fn:getNoteClass('Fs',requestScope.key)} ${fn:getNoteClass('Gf',requestScope.key)}"></div>
+                        <div class="fret-space s8 G ${fn:getNoteClass('G',requestScope.key)}"></div>
+                        <div class="fret-space s9 Gs ${fn:getNoteClass('Gs',requestScope.key)} Af ${fn:getNoteClass('Af',requestScope.key)}"></div>
+                        <div class="fret-space s10 A ${fn:getNoteClass('A',requestScope.key)}"></div>
+                        <div class="fret-space s11 As Bf ${fn:getNoteClass('As',requestScope.key)} ${fn:getNoteClass('Bf',requestScope.key)}"></div>
+                        <div class="fret-space s12 B Cf ${fn:getNoteClass('B',requestScope.key)} ${fn:getNoteClass('Cf',requestScope.key)}"></div>
+                    </div>
+                    <div class="string g-string">
+                        <div class="fret-space s1 Gs ${fn:getNoteClass('Gs',requestScope.key)} Af ${fn:getNoteClass('Af',requestScope.key)}"></div>
+                        <div class="fret-space s2 A ${fn:getNoteClass('A',requestScope.key)}"></div>
+                        <div class="fret-space s3 As Bf ${fn:getNoteClass('As',requestScope.key)} ${fn:getNoteClass('Bf',requestScope.key)}"></div>
+                        <div class="fret-space s4 B Cf ${fn:getNoteClass('B',requestScope.key)} ${fn:getNoteClass('Cf',requestScope.key)}"></div>
+                        <div class="fret-space s5 Bs C ${fn:getNoteClass('Bs',requestScope.key)} ${fn:getNoteClass('C',requestScope.key)}"></div>
+                        <div class="fret-space s6 Bs C ${fn:getNoteClass('Cs',requestScope.key)} ${fn:getNoteClass('Df',requestScope.key)}"></div>
+                        <div class="fret-space s7 D ${fn:getNoteClass('D',requestScope.key)}"></div>
+                        <div class="fret-space s8 Ds Ef ${fn:getNoteClass('Ds',requestScope.key)} ${fn:getNoteClass('Ef',requestScope.key)}"></div>
+                        <div class="fret-space s9 E Ff ${fn:getNoteClass('E',requestScope.key)} ${fn:getNoteClass('Ff',requestScope.key)}"></div>
+                        <div class="fret-space s10 Es F ${fn:getNoteClass('Es',requestScope.key)} ${fn:getNoteClass('F',requestScope.key)}"></div>
+                        <div class="fret-space s11 Fs Gf ${fn:getNoteClass('Fs',requestScope.key)} ${fn:getNoteClass('Gf',requestScope.key)}"></div>
+                        <div class="fret-space s12 G ${fn:getNoteClass('G',requestScope.key)}"></div>
+                    </div>
+                    <div class="string d-string wound">
+                        <div class="fret-space s1 Ds Ef ${fn:getNoteClass('Ds',requestScope.key)} ${fn:getNoteClass('Ef',requestScope.key)}"></div>
+                        <div class="fret-space s2 E Ff ${fn:getNoteClass('E',requestScope.key)} ${fn:getNoteClass('Ff',requestScope.key)}"></div>
+                        <div class="fret-space s3 Es F ${fn:getNoteClass('Es',requestScope.key)} ${fn:getNoteClass('F',requestScope.key)}"></div>
+                        <div class="fret-space s4 Fs Gf ${fn:getNoteClass('Fs',requestScope.key)} ${fn:getNoteClass('Gf',requestScope.key)}"></div>
+                        <div class="fret-space s5 G ${fn:getNoteClass('G',requestScope.key)}"></div>
+                        <div class="fret-space s6 Gs ${fn:getNoteClass('Gs',requestScope.key)} Af ${fn:getNoteClass('Af',requestScope.key)}"></div>
+                        <div class="fret-space s7 A ${fn:getNoteClass('A',requestScope.key)}"></div>
+                        <div class="fret-space s8 As Bf ${fn:getNoteClass('As',requestScope.key)} ${fn:getNoteClass('Bf',requestScope.key)}"></div>
+                        <div class="fret-space s9 B Cf ${fn:getNoteClass('B',requestScope.key)} ${fn:getNoteClass('Cf',requestScope.key)}"></div>
+                        <div class="fret-space s10 Bs C ${fn:getNoteClass('Bs',requestScope.key)} ${fn:getNoteClass('C',requestScope.key)}"></div>
+                        <div class="fret-space s11 Bs C ${fn:getNoteClass('Cs',requestScope.key)} ${fn:getNoteClass('Df',requestScope.key)}"></div>
+                        <div class="fret-space s12 D ${fn:getNoteClass('D',requestScope.key)}"></div>
+                    </div>
+                    <div class="string a-string wound">
+                        <div class="fret-space s1 As Bf ${fn:getNoteClass('As',requestScope.key)} ${fn:getNoteClass('Bf',requestScope.key)}"></div>
+                        <div class="fret-space s2 B Cf ${fn:getNoteClass('B',requestScope.key)} ${fn:getNoteClass('Cf',requestScope.key)}"></div>
+                        <div class="fret-space s3 Bs C ${fn:getNoteClass('Bs',requestScope.key)} ${fn:getNoteClass('C',requestScope.key)}"></div>
+                        <div class="fret-space s4 Bs C ${fn:getNoteClass('Cs',requestScope.key)} ${fn:getNoteClass('Df',requestScope.key)}"></div>
+                        <div class="fret-space s5 D ${fn:getNoteClass('D',requestScope.key)}"></div>
+                        <div class="fret-space s6 Ds Ef ${fn:getNoteClass('Ds',requestScope.key)} ${fn:getNoteClass('Ef',requestScope.key)}"></div>
+                        <div class="fret-space s7 E Ff ${fn:getNoteClass('E',requestScope.key)} ${fn:getNoteClass('Ff',requestScope.key)}"></div>
+                        <div class="fret-space s8 Es F ${fn:getNoteClass('Es',requestScope.key)} ${fn:getNoteClass('F',requestScope.key)}"></div>
+                        <div class="fret-space s9 Fs Gf ${fn:getNoteClass('Fs',requestScope.key)} ${fn:getNoteClass('Gf',requestScope.key)}"></div>
+                        <div class="fret-space s10 G ${fn:getNoteClass('G',requestScope.key)}"></div>
+                        <div class="fret-space s11 Gs ${fn:getNoteClass('Gs',requestScope.key)} Af ${fn:getNoteClass('Af',requestScope.key)}"></div>
+                        <div class="fret-space s12 A ${fn:getNoteClass('A',requestScope.key)}"></div>
+                    </div>
+                    <div class="string e-string wound">
+                        <div class="fret-space s1 Es F ${fn:getNoteClass('Es',requestScope.key)} ${fn:getNoteClass('F',requestScope.key)}"></div>
+                        <div class="fret-space s2 Fs Gf ${fn:getNoteClass('Fs',requestScope.key)} ${fn:getNoteClass('Gf',requestScope.key)}"></div>
+                        <div class="fret-space s3 G ${fn:getNoteClass('G',requestScope.key)}"></div>
+                        <div class="fret-space s4 Gs ${fn:getNoteClass('Gs',requestScope.key)} Af ${fn:getNoteClass('Af',requestScope.key)}"></div>
+                        <div class="fret-space s5 A ${fn:getNoteClass('A',requestScope.key)}"></div>
+                        <div class="fret-space s6 As Bf ${fn:getNoteClass('As',requestScope.key)} ${fn:getNoteClass('Bf',requestScope.key)}"></div>
+                        <div class="fret-space s7 B Cf ${fn:getNoteClass('B',requestScope.key)} ${fn:getNoteClass('Cf',requestScope.key)}"></div>
+                        <div class="fret-space s8 Bs C ${fn:getNoteClass('Bs',requestScope.key)} ${fn:getNoteClass('C',requestScope.key)}"></div>
+                        <div class="fret-space s9 Bs C ${fn:getNoteClass('Cs',requestScope.key)} ${fn:getNoteClass('Df',requestScope.key)}"></div>
+                        <div class="fret-space s10 D ${fn:getNoteClass('D',requestScope.key)}"></div>
+                        <div class="fret-space s11 Ds Ef ${fn:getNoteClass('Ds',requestScope.key)} ${fn:getNoteClass('Ef',requestScope.key)}"></div>
+                        <div class="fret-space s12 E Ff ${fn:getNoteClass('E',requestScope.key)} ${fn:getNoteClass('Ff',requestScope.key)}"></div>
+                    </div>
                 </div>
             </div>
-            <div class="octave">
-                <div class="white-keys">
-                    <div class="key c bs"><div class="overlay"></div></div>
-                    <div class="key d"><div class="overlay"></div></div>
-                    <div class="key e ff"><div class="overlay"></div></div>
-                    <div class="key f es"><div class="overlay"></div></div>
-                    <div class="key g"><div class="overlay"></div></div>
-                    <div class="key a"><div class="overlay"></div></div>
-                    <div class="key b cf"><div class="overlay"></div></div>
-                </div>
-                <div class="black-keys">
-                    <div class="key cs df"><div class="overlay"></div></div>
-                    <div class="key s ef"><div class="overlay"></div></div>
-                    <div class="key fs gf"><div class="overlay"></div></div>
-                    <div class="key gs af"><div class="overlay"></div></div>
-                    <div class="key as bf"><div class="overlay"></div></div>
-                </div>
-            </div>
-            <div class="octave">
-                <div class="white-keys">
-                    <div class="key c bs"><div class="overlay"></div></div>
-                </div>
-            </div>
-        </div>
-
+    		</div>
     </body>
 </html>
