@@ -2,9 +2,9 @@ package nl.rickhurkens.music.web;
 
 import java.util.List;
 
-import nl.rickhurkens.music.noteFinder.Key;
-import nl.rickhurkens.music.noteFinder.Note;
-import nl.rickhurkens.music.noteFinder.Notes;
+import nl.rickhurkens.music.noteFinderOld.Key;
+import nl.rickhurkens.music.noteFinderOld.Note;
+import nl.rickhurkens.music.noteFinderOld.Notes;
 
 public class Functions {
 	public static String getNoteClass(Note note, Key key) {

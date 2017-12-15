@@ -1,4 +1,4 @@
-package nl.rickhurkens.music.noteFinder;
+package nl.rickhurkens.music.noteFinderOld;
 
 import java.util.List;
 import java.util.StringJoiner;
