@@ -1,4 +1,4 @@
-package nl.rickhurkens.music.noteFinder;
+package nl.rickhurkens.music.noteFinderOld;
 
 public enum AbstractScale {
 	MAJOR (new int[] {0,2,4,5,7,9,11}),

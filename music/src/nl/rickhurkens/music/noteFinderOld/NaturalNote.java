@@ -1,4 +1,4 @@
-package nl.rickhurkens.music.noteFinder;
+package nl.rickhurkens.music.noteFinderOld;
 
 public enum NaturalNote {
 	A (1),

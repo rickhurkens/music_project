@@ -6,10 +6,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import nl.rickhurkens.music.noteFinder.Note;
-import nl.rickhurkens.music.noteFinder.Notes;
-import nl.rickhurkens.music.noteFinder.AbstractScale;
-import nl.rickhurkens.music.noteFinder.Key;
+import nl.rickhurkens.music.noteFinderOld.AbstractScale;
+import nl.rickhurkens.music.noteFinderOld.Key;
+import nl.rickhurkens.music.noteFinderOld.Note;
+import nl.rickhurkens.music.noteFinderOld.Notes;
 
 import java.io.IOException;
 
