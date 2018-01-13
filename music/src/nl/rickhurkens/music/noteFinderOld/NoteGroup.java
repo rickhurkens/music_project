@@ -4,12 +4,12 @@ import java.util.List;
 import java.util.StringJoiner;
 import java.util.ArrayList;
 
-public class Key {
+public class NoteGroup {
 	private List<Note> scale = new ArrayList<>();
 	private NoteModifier scaleModifier;
 	private AbstractScale abstractScale;
 	
-	public Key(Note rootNote, AbstractScale abstractScale) {
+	public NoteGroup(Note rootNote, AbstractScale abstractScale) {
 		addNote(rootNote);
 		this.abstractScale = abstractScale;
 		

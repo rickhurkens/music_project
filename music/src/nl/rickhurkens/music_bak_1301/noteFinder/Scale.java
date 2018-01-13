@@ -99,71 +99,49 @@ public class Scale implements NoteGroup {
 	 * @throws DoubleLettersException when it can't compute a scale without double naturals.
 	 */
 	private List<Note> fillScale(Note rootNote) throws DoubleLettersException {
-		setModifierBasedOn(rootNote);
-		int rootNoteValue = rootNote.getValue();
-		List<Note> notes = new ArrayList<>();
-		notes.add(rootNote);
+		if (rootNote.isFlat()) {
+			modifier = "flat";
+		} else {
+			modifier = "sharp";
+		}
 		
-		for (int i = 1; i < intervals.size(); i++) {
-			int semitoneValue = (rootNoteValue + NoteGroups.INTERVAL_TO_SEMITONE.get(intervals.get(i))) % 12;
-			String[] options = getOptions(semitoneValue);
-			String goodOption = getGoodOption(options, notes.get(i-1));
-			Note nextNote = Notes.getNote(goodOption);
-			notes.add(nextNote);
-			if (modifier == null) {
-				setModifierBasedOn(nextNote);
+		List<Note> notes = null;
+		do {
+			// if the List was already filled, see if setting the modifier to "flat"
+			// gives a correct scale. If it was already "flat", either we started
+			// trying with "sharp" and this second iteration already happened, or
+			// the root note is a flat and this scale is just not working.
+			if (notes != null) {
+				if (modifier != "flat") {
+					modifier = "flat";
+				} else {
+					throw new DoubleLettersException(this, "Can't compute this scale with either flats or sharps without using the same natural twice.");
+				}
+			}
+			notes = calculateNotes(rootNote);
+		} while (scaleHasDoubleLetters(notes));
+		
+		return notes;
+	}
+
+	/**
+	 * This method will calculate possible Notes in this scale, based on the
+	 * rootNote, the interval pattern and the sharp or flat modifier. 
+	 * @param rootNote The root note of this scale.
+	 * @return a List of Notes.
+	 */
+	private List<Note> calculateNotes(Note rootNote) {
+		int rootValue = rootNote.getValue();
+		List<Note> notes = new ArrayList<>();
+		for (String interval : intervals) {
+			int semitoneValue = (rootValue + NoteGroups.INTERVAL_TO_SEMITONE.get(interval)) % 12;
+			if (modifier.equals("sharp")) {
+				notes.add(new Note(Notes.SEMITONE_TO_SHARP_NAME.get(semitoneValue)));
+			} else {
+				notes.add(new Note(Notes.SEMITONE_TO_FLAT_NAME.get(semitoneValue)));
 			}
 		}
 		return notes;
-	}
-	
-	/**
-	 * Picks the correct options based on what the next letter should be.
-	 * @param options A string array with 2 options.
-	 * @param previousNote The previous note in the scale.
-	 * @return the name of the chosen note.
-	 * @throws DoubleLettersException When no option is good.
-	 */
-	private String getGoodOption(String[] options, Note previousNote) throws DoubleLettersException {
-		char previousChar = previousNote.toString().charAt(0);
-		char goodChar = previousChar == 'G' ? 'A' : ++previousChar;
-		if (options[0] != null && options[0].charAt(0) == goodChar) {
-			return options[0];
-		}
-		if (options[1] == null || options[1].charAt(0) != goodChar) {
-			throw new DoubleLettersException(this, "Could not find the next note starting with correct letter.");
-		}
-		return options[1];
-	}
-	
-	/**
-	 * Gets the options of note names for a given semitone value.
-	 * @param value the semitone value
-	 * @return a String array of length 2 filled with either a note name 
-	 * or null.
-	 */
-	private String[] getOptions(int value) {
-		String[] options = new String[2];
-		if (Notes.SEMITONE_TO_FLAT_NAME.containsKey(value)) {
-			options[0] = Notes.SEMITONE_TO_FLAT_NAME.get(value);
-			if (Notes.SEMITONE_TO_SHARP_NAME.containsKey(value)) {
-				options[1] = Notes.SEMITONE_TO_SHARP_NAME.get(value);
-			} else {
-				options[1] = Notes.SEMITONE_TO_NATURAL_NAME.get(value);
-			}
-		} else {
-			options[0] = Notes.SEMITONE_TO_NATURAL_NAME.get(value);
-			options[1] = Notes.SEMITONE_TO_SHARP_NAME.get(value);
-		}
-		return options;
-	}
-	
-	private void setModifierBasedOn(Note note) {
-		if (note.isSharp()) {
-			modifier = "sharp";
-		} else if (note.isFlat()) {
-			modifier = "flat";
-		}
 	}
 	
 	/**
