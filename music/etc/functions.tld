@@ -7,8 +7,14 @@
 	<uri>functionsTaglib</uri>
 	
 	<function>
-		<name>getNoteClass</name>
+		<name>isSemitoneInGroup</name>
 		<function-class>nl.rickhurkens.music.web.Functions</function-class>
-		<function-signature>java.lang.String getNoteClass(java.lang.String, nl.rickhurkens.music.noteFinder.Key)</function-signature>
+		<function-signature>boolean isSemitoneInGroup(int, nl.rickhurkens.music.noteFinder.NoteGroup)</function-signature>
+	</function>
+	
+	<function>
+		<name>isRootOfGroup</name>
+		<function-class>nl.rickhurkens.music.web.Functions</function-class>
+		<function-signature>boolean isRootOfGroup(int, nl.rickhurkens.music.noteFinder.NoteGroup)</function-signature>
 	</function>
 </taglib>

@@ -24,6 +24,13 @@ public class Notes {
 	private static String semitonesToSharpFilename;
 	private static final String RESOURCES_PATH;
 	
+	// TODO: figure out a way to store multiple values (and retrieve the right
+	// one in the right situation) for one semitone. For these semitone values:
+	// 3 = B or Cb
+	// 4 = B# or C
+	// 8 = E or Fb
+	// 9 = E# or F
+	
 	/**
 	 * Holds the natural names for a given semitone value.
 	 */
@@ -169,7 +176,10 @@ public class Notes {
 		allSemitones.add(SEMITONE_TO_FLAT_NAME);
 		allSemitones.add(SEMITONE_TO_SHARP_NAME);
 		for(Map<Integer,String> map : allSemitones) {
-			map.forEach((semitoneValue,name) -> tempMap.put(name,semitoneValue));
+			map.forEach((semitoneValue,name) -> {
+				tempMap.put(name,semitoneValue);
+				System.out.println(name + " " + semitoneValue);
+			});
 		}
 		return tempMap;
 	}

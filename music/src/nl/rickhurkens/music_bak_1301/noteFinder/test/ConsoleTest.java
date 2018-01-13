@@ -28,13 +28,16 @@ public class ConsoleTest {
 		NoteGroup noteGroup = null;
 		try {
 			noteGroup = NoteGroups.getInstance("Gb", "ionian");
-			System.out.println("\n" + noteGroup.getName());
-			System.out.println(noteGroup.getNotes().toString());
-			System.out.println(noteGroup.getIntervals());
 		} catch (DoubleLettersException dle) {
-			System.out.println(dle.getGrouping() + " probably contains double flats or sharps");
+			System.out.println(dle.getMessage());
+			dle.printStackTrace();
 		}
-
+		System.out.println("\n" + noteGroup.getName());
+		System.out.println(noteGroup.getNotes().toString());
+		System.out.println(noteGroup.getIntervals());
+	
+		
+		/*
 		// retrieve a major, dominant 7, minor major 7, and half diminished 7 chord (maj, minmaj7, dom7, halfdim7) 
 		// and display their name, a list of containing notes and a list of containing intervals
 		// each with one natural, one sharp and one flat
@@ -45,15 +48,17 @@ public class ConsoleTest {
 		notes[1] = "F#";
 		notes[2] = "Ab";
 		for (String noteName : notes) {
-			noteGroup = null;
+			NoteGroup noteGroup = null;
 			try {
 				noteGroup = NoteGroups.getInstance(noteName,"maj");
-				System.out.println("\n" + noteGroup.getName());
-				System.out.println(noteGroup.getNotes().toString());
-				System.out.println(noteGroup.getIntervals());
 			} catch (DoubleLettersException dle) {
-				System.out.println(dle.getGrouping() + " probably contains double flats or sharps");
+				System.out.println(dle.getMessage());
+				System.out.println(dle.getGrouping());
+				dle.printStackTrace();
 			}
+			System.out.println("\n" + noteGroup.getName());
+			System.out.println(noteGroup.getNotes().toString());
+			System.out.println(noteGroup.getIntervals());
 		}
 		
 		// Dominant 7
@@ -62,15 +67,17 @@ public class ConsoleTest {
 		notes[1] = "A#";
 		notes[2] = "Eb";
 		for (String noteName : notes) {
-			noteGroup = null;
+			NoteGroup noteGroup = null;
 			try {
 				noteGroup = NoteGroups.getInstance(noteName,"dom7");
-				System.out.println("\n" + noteGroup.getName());
-				System.out.println(noteGroup.getNotes().toString());
-				System.out.println(noteGroup.getIntervals());
 			} catch (DoubleLettersException dle) {
-				System.out.println(dle.getGrouping() + " probably contains double flats or sharps");
+				System.out.println(dle.getMessage());
+				System.out.println(dle.getGrouping());
+				dle.printStackTrace();
 			}
+			System.out.println("\n" + noteGroup.getName());
+			System.out.println(noteGroup.getNotes().toString());
+			System.out.println(noteGroup.getIntervals());
 		}
 		
 		// Minor Major 7
@@ -79,15 +86,17 @@ public class ConsoleTest {
 		notes[1] = "A#";
 		notes[2] = "Gb";
 		for (String noteName : notes) {
-			noteGroup = null;
+			NoteGroup noteGroup = null;
 			try {
 				noteGroup = NoteGroups.getInstance(noteName,"minmaj7");
-				System.out.println("\n" + noteGroup.getName());
-				System.out.println(noteGroup.getNotes().toString());
-				System.out.println(noteGroup.getIntervals());
 			} catch (DoubleLettersException dle) {
-				System.out.println(dle.getGrouping() + " probably contains double flats or sharps");
+				System.out.println(dle.getMessage());
+				System.out.println(dle.getGrouping());
+				dle.printStackTrace();
 			}
+			System.out.println("\n" + noteGroup.getName());
+			System.out.println(noteGroup.getNotes().toString());
+			System.out.println(noteGroup.getIntervals());
 		}
 		
 		// Half Diminished 7
@@ -96,32 +105,36 @@ public class ConsoleTest {
 		notes[1] = "F#";
 		notes[2] = "Db";
 		for (String noteName : notes) {
-			noteGroup = null;
+			NoteGroup noteGroup = null;
 			try {
 				noteGroup = NoteGroups.getInstance(noteName,"halfdim7");
-				System.out.println("\n" + noteGroup.getName());
-				System.out.println(noteGroup.getNotes().toString());
-				System.out.println(noteGroup.getIntervals());
 			} catch (DoubleLettersException dle) {
-				System.out.println(dle.getGrouping() + " probably contains double flats or sharps");
+				System.out.println(dle.getMessage());
+				System.out.println(dle.getGrouping());
+				dle.printStackTrace();
 			}
-		}
+			System.out.println("\n" + noteGroup.getName());
+			System.out.println(noteGroup.getNotes().toString());
+			System.out.println(noteGroup.getIntervals());
+		}*/
 		
-		
-		// getting all notes through all scales to see if any Exceptions occur:
+		/* 
+		 * getting all notes through all scales to see if any Exceptions occur:
 		System.out.println("\n##\tgetting all notes in all scales to see if Exceptions occur:\t##\n");		
 		String[] notes2 = {"A","A#","B","C","C#","D","D#","E","F","F#","G","G#"};
 		for (String scaleName : NoteGroups.INTERVALS_PER_SCALE.keySet()) {
 			for (String noteName : notes2) {
-				noteGroup = null;
+				NoteGroup noteGroup = null;
 				try {
 					noteGroup = NoteGroups.getInstance(noteName, scaleName);
-					System.out.println("\n" + noteGroup.getName());
-					System.out.println(noteGroup.getNotes().toString());
 				} catch (DoubleLettersException dle) {
 					System.out.println("\n" + dle.getGrouping() + " is either a theoretical scale or my fault because I didn't add B#, Cb, E# and Fb.");
+					continue;
 				}
+				System.out.println("\n" + noteGroup.getName());
+				System.out.println(noteGroup.getNotes().toString());
 			}
 		}
+		*/
 	}
 }
